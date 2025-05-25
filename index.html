@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domine R: Do Zero ao Jedi em Análise de Dados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Hero */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Story Section */
+        .story {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .story h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .story-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Problems Section */
+        .problems {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .problems h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 50px;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .problem-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .solution h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        /* Course Content */
+        .course-content {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .course-content h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 50px;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .module-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            background: #e9ecef;
+            transform: translateX(10px);
+        }
+
+        .module-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .module-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Inside Preview Section */
+        .inside-preview {
+            background: white;
+            padding: 80px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .inside-preview h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .preview-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .preview-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .preview-video {
+            position: relative;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .preview-video a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .video-placeholder:hover {
+            transform: scale(1.02);
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .play-icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-left: 5px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+        }
+
+        .video-overlay h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .video-overlay p {
+            opacity: 0.9;
+        }
+
+        .preview-features {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .feature-text p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .preview-cta {
+            text-align: center;
+        }
+
+        .btn-preview {
+            display: inline-block;
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn-preview:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(40, 167, 69, 0.6);
+        }
+
+        .preview-note {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .video-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Author Section */
+        .author {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .author-content {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .author-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: url('https://via.placeholder.com/200x200/667eea/ffffff?text=Sua+Foto');
+            background-size: cover;
+            background-position: center;
+            border: 4px solid #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .author-bio h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .author-bio p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .price-box {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .price-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .author-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Domine R: Do Zero ao Jedi</h1>
+                <p class="subtitle">O Curso Completo de Análise de Dados que Você Sempre Quis</p>
+                <p class="tagline">Sem "Hello World", sem perda de tempo. Apenas resultados reais.</p>
+                <a href="https://pay.hotmart.com/Y86182554T?off=8bd2bu3a&_hi=eyJjaWQiOiIxNzE5Njc2MzU4MzUxNjQ0MjI4MTkzNTA2MzYzMTAwIiwiYmlkIjoiMTcxOTY3NjM1ODM1MTY0NDIyODE5MzUwNjM2MzEwMCIsInNpZCI6ImU1ZTE1ZjBmMDdjMDQ5ZWQ4NTc5MTE1NDU0NmYwMjViIn0=.1748198225998&bid=1748198227272" class="cta-primary">🚀 QUERO DOMINAR R AGORA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story">
+        <div class="container">
+            <div class="story-content">
+                <h2>A História que Mudou Tudo</h2>
+                <p class="story-text">
+                    Lembro-me claramente de 2012, quando iniciei minha jornada com a linguagem R. Foi um caminho cheio de altos e baixos. <span class="highlight">Meu primeiro artigo foi rejeitado</span>, não por falta de esforço ou paixão, mas por erros nas análises estatísticas.
+                </p>
+                <p class="story-text">
+                    Aquela experiência foi um divisor de águas, e percebi a necessidade de um recurso que fosse direto ao ponto, sem rodeios.
+                </p>
+                <p class="story-text">
+                    <strong>Este é o curso que eu desejaria ter em 2012!</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="container">
+            <h2>Você Está Cansado de...</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">😤</div>
+                    <h3>Perder Horas com "Hello World"</h3>
+                    <p>Tutoriais que ensinam o básico sem aplicação prática real</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🤯</div>
+                    <h3>Análises Rejeitadas</h3>
+                    <p>Artigos científicos recusados por erros estatísticos</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Tempo Desperdiçado</h3>
+                    <p>Horas perdidas em conceitos que não levam a lugar algum</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2>A Solução Que Você Precisa</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>✨ Direto ao Ponto</h3>
+                    <p>Sem encheção de linguiça, apenas o que você realmente precisa saber</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>⚡ Economize Tempo</h3>
+                    <p>Aprenda de forma eficiente, sem aulas desnecessárias</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🎯 Material Prático</h3>
+                    <p>Exemplos do mundo real para aplicar imediatamente</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🧠 Simples e Fácil</h3>
+                    <p>Ideal para iniciantes e quem já tem experiência</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <h2>Veja Como Funciona na Prática</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/sIxNdYFl1Rc" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p style="font-size: 1.1rem; color: #666;">Tire suas dúvidas e veja exemplos reais do curso</p>
+        </div>
+    </section>
+
+    <!-- Inside Course Preview -->
+    <section class="inside-preview">
+        <div class="container">
+            <h2>Veja o Curso Por Dentro</h2>
+            <p class="preview-subtitle">Tenha um gostinho do que você vai encontrar na área exclusiva de alunos</p>
+
+            <div class="preview-content">
+                <div class="preview-video">
+                    <a href="https://hotmart.com/en/club/estatistica-com-r" target="_blank">
+                        <div class="video-placeholder">
+                            <div class="play-button">
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-overlay">
+                                <h3>Tour pela Plataforma</h3>
+                                <p>Acesso gratuito • Sem compromisso • Veja por dentro</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="preview-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">📚</div>
+                        <div class="feature-text">
+                            <h4>Aulas Organizadas</h4>
+                            <p>Módulos sequenciais e progressivos</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">💻</div>
+                        <div class="feature-text">
+                            <h4>Scripts Prontos</h4>
+                            <p>Códigos para download em cada aula</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-text">
+                            <h4>Exercícios Práticos</h4>
+                            <p>Atividades para fixar o aprendizado</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-icon">🔄</div>
+                        <div class="feature-text">
+                            <h4>Acesso Vitalício</h4>
+                            <p>Assista quantas vezes quiser</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Content -->
+    <section class="course-content">
+        <div class="container">
+            <h2>O Que Você Vai Aprender</h2>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-title">🚀 Primeiros Passos</div>
+                    <div class="module-description">
+                        Instalação do R e RStudio, primeiros comandos, organização do ambiente e instalação de pacotes
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">📊 Análise Exploratória</div>
+                    <div class="module-description">
+                        Importação de dados, Tidyverse, estatísticas descritivas, testes de normalidade
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">🔬 ANOVA Completa</div>
+                    <div class="module-description">
+                        Delineamentos experimentais: casualizado, blocos, quadrado latino, fatoriais e parcelas subdivididas
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">📈 Regressão e Visualização</div>
+                    <div class="module-description">
+                        Modelos de regressão, gráficos com ggplot2, equações e R²
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">⚡ Power Analysis</div>
+                    <div class="module-description">
+                        Cálculo do tamanho amostral e análise de poder estatístico
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">🔄 Modelos Mistos</div>
+                    <div class="module-description">
+                        Medidas repetidas, análises longitudinais e modelos hierárquicos
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">🎲 Modelos Generalizados</div>
+                    <div class="module-description">
+                        Distribuições não-normais: binomial, Poisson, lognormal, exponencial e gama
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">🥋 Métodos Não-Paramétricos</div>
+                    <div class="module-description">
+                        Mann-Whitney, Wilcoxon, Kruskal-Wallis e teste de Dunn
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">📅 Análise de Sobrevivência</div>
+                    <div class="module-description">
+                        Kaplan-Meier e modelos de Cox para análise temporal
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-title">🌟 Modelos Não-Lineares</div>
+                    <div class="module-description">
+                        Nível Jedi: modelos não-lineares e não-lineares mistos avançados
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Section -->
+    <section class="author">
+        <div class="container">
+            <div class="author-content">
+                <div class="author-photo"></div>
+                <div class="author-bio">
+                    <h3>Leonardo Gloria</h3>
+                    <p>Professor universitário especializado em análise de dados e ferramentas computacionais, com experiência internacional e publicações em revistas de alto fator de impacto.</p>
+                    <p>Especialista em estatísticas avançadas, análise genética de ponta, estatística Frequentista e Bayesiana, incluindo regressão aleatória, modelos lineares e não lineares mistos.</p>
+                    <p><strong>Uma trajetória dedicada a transformar a forma como você aprende e aplica R na prática.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="comprar">
+        <div class="container">
+            <h2>Transforme Sua Carreira Hoje</h2>
+            <div class="price-box">
+                <div class="price">Investimento Especial</div>
+                <div class="price-description">Acesso vitalício + Atualizações gratuitas</div>
+            </div>
+            <a href="https://pay.hotmart.com/Y86182554T?off=8bd2bu3a&_hi=eyJjaWQiOiIxNzE5Njc2MzU4MzUxNjQ0MjI4MTkzNTA2MzYzMTAwIiwiYmlkIjoiMTcxOTY3NjM1ODM1MTY0NDIyODE5MzUwNjM2MzEwMCIsInNpZCI6ImU1ZTE1ZjBmMDdjMDQ5ZWQ4NTc5MTE1NDU0NmYwMjViIn0=.1748198225998&bid=1748198227272" class="cta-primary" style="font-size: 1.3rem; padding: 20px 50px;">
+                🎯 SIM, QUERO DOMINAR R AGORA!
+            </a>
+            <p style="margin-top: 30px; opacity: 0.8;">
+                ✅ Garantia de 7 dias | ✅ Suporte direto | ✅ Certificado de conclusão
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll for CTA buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.problem-card, .benefit-card, .module-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
