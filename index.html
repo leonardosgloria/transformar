@@ -271,15 +271,13 @@
         }
 
         .preview-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin-bottom: 60px;
+            display: flex;
+            flex-direction: column-reverse
         }
 
         .preview-video {
             position: relative;
+            margin-top: 40px
         }
 
         .video-placeholder {
@@ -346,9 +344,10 @@
         }
 
         .preview-features {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+           display: flex;
+           flex-wrap: wrap;        /* faz quebrar em várias linhas, se necessário */
+           justify-content: space-between; /* espaça uniformemente */
+           gap: 30px;              /* espaçamento entre os cards */
         }
 
         .feature-item {
@@ -494,9 +493,9 @@
         }
 
         .price {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 9px;
         }
 
         .price-description {
@@ -531,6 +530,64 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        * Descriptive Stats Preview Section */
+        .video-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .support {
+  background: #f1f1f1;
+  padding: 60px 0;
+  text-align: center;
+}
+.support h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+.support p {
+  font-size: 1.1rem;
+  color: #555;
+}
+.support a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+}
+.support a:hover {
+  text-decoration: underline;
+}
+
+
+
     </style>
     <!-- Meta Pixel Code -->
     <script>
@@ -784,6 +841,25 @@
         </div>
     </section>
 
+
+<!-- Descriptive Statistics Preview Section -->
+    <section class="video-section">
+        <div class="container">
+            <h2>Aula Grátis de Estatística Descritiva</h2>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/qW9SphzObkg" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <p style="font-size: 1.6rem; color: #666; text-align:center;">Aprenda a calcular toda a estatística descritiva com apenas uma linha de comando no R!</p>
+        </div>
+         <a href="https://pay.hotmart.com/Y86182554T?off=8bd2bu3a&_hi=eyJjaWQiOiIxNzE5Njc2MzU4MzUxNjQ0MjI4MTkzNTA2MzYzMTAwIiwiYmlkIjoiMTcxOTY3NjM1ODM1MTY0NDIyODE5MzUwNjM2MzEwMCIsInNpZCI6ImU1ZTE1ZjBmMDdjMDQ5ZWQ4NTc5MTE1NDU0NmYwMjViIn0=.1748198225998&bid=1748198227272" class="cta-primary" style="font-size: 1.3rem; padding: 20px 50px;">
+                🎯 QUERO APRENDER SEM PERDER TEMPO!
+            </a>
+    </section>
+
+
+
     <!-- Author Section -->
 <section class="author">
   <div class="container">
@@ -821,6 +897,18 @@
             </p>
         </div>
     </section>
+
+     <!-- Seção de Suporte -->
+  <section class="support">
+    <div class="container">
+      <h2>Ficou com alguma dúvida?</h2>
+      <p>Nosso suporte está pronto para ajudar você! Envie um e-mail para
+         <a href="mailto:gloriasleonardo.online@gmail.com">
+           gloriasleonardo.online@gmail.com
+         </a>
+      e responderemos o mais breve possível.</p>
+    </div>
+  </section>
 
     <script>
         // Smooth scroll for CTA buttons
